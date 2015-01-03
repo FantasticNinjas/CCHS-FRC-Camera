@@ -6,6 +6,8 @@
 package robot.vision.base;
 
 import java.io.File;
+import robot.vision.filters.Subtract;
+import robot.vision.filters.Threshold;
 
 /**
  *
@@ -15,15 +17,20 @@ public class Main {
     
     public static final int windowWidth = 800;
     public static final int windowHeight = 600;
-    public static final String frogPath = "/Users/Ben1/Desktop/Frog.jpg";
+    public static final String darkImagePath = "/Users/Ben1/NetBeansProjects/CCHS-FRC-Camera/Robot_Images/Dark.jpg";
+    public static final String lightImagePath = "/Users/Ben1/NetBeansProjects/CCHS-FRC-Camera/Robot_Images/Light.jpg";
     
     public static void main(String[] args) {
         Window display = new Window(800, 600);
         
-        Bitmap frog = new Bitmap(new File(Main.frogPath));
-        ImageDrawer frogDraw = new ImageDrawer(frog);
+        Bitmap darkImage = new Bitmap(new File(Main.darkImagePath));
+        Bitmap lightImage = new Bitmap(new File(Main.lightImagePath));
         
-        display.add(frogDraw);
+        Subtract combine = new Subtract(lightImage, darkImage);
+        Threshold cutoff = new Threshold(combine, 1);
+        ImageDrawer drawer = new ImageDrawer(cutoff);
+        
+        display.add(drawer);
         display.update();
     }
 }

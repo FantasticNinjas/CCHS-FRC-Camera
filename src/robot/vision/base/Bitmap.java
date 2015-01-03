@@ -39,4 +39,9 @@ public class Bitmap extends Image {
         return imageData;
     }
     
+    @Override
+    public int getPixel(int x, int y) {
+        return this.getPixel(x, y, this.getRBG(), this.getWidth(), this.getHeight());
+    }
+    
 }

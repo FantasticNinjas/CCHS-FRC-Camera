@@ -35,6 +35,47 @@ public abstract class Image{
         BufferedImage imageData = this.getImage();
         return imageData.getRGB(0, 0, imageData.getWidth(), imageData.getHeight(), null, 0, imageData.getWidth());
     }
+    
+        
+    /**
+     * get the color of an image's pixel
+     * @param x the x position of the pixel
+     * @param y the y position of the pixel
+     * @param image the image as a linear array of RBG pixels
+     * @param width the width of the image
+     * @param height the height of the image
+     * @return the color of the pixel located at (x, y) as an RBG integer
+     */
+    public int getPixel(int x, int y, int[] image, int width, int height) {
+        int trueX = x;
+        int trueY = y;
+        
+        //Make sure trueX is in bounds
+        if (trueX < 0) {
+            trueX = 0;
+        }
+        if (trueX >= width) {
+            trueX = width - 1;
+        }
+        
+        //Make sure trueY is in bonds
+        if (trueY < 0) {
+            trueY = 0;
+        }
+        if (trueY >= height) {
+            trueY = height - 1;
+        }
+        
+        return image[trueY * width + trueX];
+    }
+    
+    /**
+     * get the color of the image below this one in the stack
+     * @param x the x position of the pixel
+     * @param y the y position of the pixel
+     * @return the color of the pixel located at (x, y) as an RBG integer
+     */
+    public abstract int getPixel(int x, int y);
 
     /**
      * @return the width
